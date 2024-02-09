@@ -13,6 +13,8 @@ app.get('/',(req, res)=> {
     })
 })
 
+//or
+
 //* means everything
 app.all('*', (req, res)=> {
     res.json({
@@ -21,4 +23,11 @@ app.all('*', (req, res)=> {
     })
 })
 
+/* Middleware
+home work
+=======
+1. What is middleware?
+2. How can we use it in express?
+3. How do we use it in our API?
+*/
 app.listen(port)

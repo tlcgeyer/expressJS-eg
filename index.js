@@ -4,19 +4,24 @@ import express from 'express'
 // Creating an express App
 const app = express()
 const port = +process.env.PORT || 4000
+//Our router middleware
+const router = express.Router()
 /*You set up the router via the express App. np: patch is faster then put*/
 
+//alt way of using router as middleware
+app.use(router)
 /*Router/Routing: defines how the clients requests are handled by the application endpoints(URL).*/
 
 /*Routing using Express Framework:
 Routes are defined by using the method of the "app" object.  */
-app.get('/',display, (req, res)=> {
+router.get('/*',display, (req, res)=> {  //('^/$|/express')
     res.json({
         status: res.statusCode,
         msg: 'Ayo'
     })
 })
 
+//specify nothing or specify /express either take to the home page. 
 
 //or
 /*Routing without using Express.
@@ -31,7 +36,7 @@ app.all('*', (req, res)=> {
 
 // Example based on middleware(middleware function)
 function display(req, res, next){
-    console.log("Ohayooo");
+    console.log("Hi, there");
     next()
 }
 

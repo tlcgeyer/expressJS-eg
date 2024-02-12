@@ -1,5 +1,5 @@
 import express from 'express'
-
+import path from 'path'
 //You need to create an express app to gain access to the express method. 
 // Creating an express App
 const app = express()
@@ -9,30 +9,36 @@ const router = express.Router()
 /*You set up the router via the express App. np: patch is faster then put*/
 
 //alt way of using router as middleware
-app.use(router)
+app.use(
+    router, 
+    express.static('./static')
+    )
 /*Router/Routing: defines how the clients requests are handled by the application endpoints(URL).*/
 
 /*Routing using Express Framework:
 Routes are defined by using the method of the "app" object.  */
-router.get('/*',display, (req, res)=> {  //('^/$|/express')
-    res.json({
-        status: res.statusCode,
-        msg: 'Ayo'
-    })
+router.get('^/$|/express',display, (req, res)=> {  //('^/$|/express')
+    res.status(200).sendFile(path.resolve('./static/html/index.html'))
 })
 
+router.get('/about', (req, res)=> {
+    res.json({
+        status:res.statusCode,
+        msg:'About'
+    })
+})
 //specify nothing or specify /express either take to the home page. 
 
 //or
 /*Routing without using Express.
 Framework: For handling all HTTP methods(eg. GET, POST, PUT, DELETE,etc) use the app.all() method.
 The * means to include everything.*/
-app.all('*', (req, res)=> {
-    res.json({
-        status: 404, 
-        msg: '404 Page'
-    })
-})
+// app.all('*', (req, res)=> {
+//     res.json({
+//         status: 404, 
+//         msg: '404 Page'
+//     })
+// })
 
 // Example based on middleware(middleware function)
 function display(req, res, next){
